@@ -1,0 +1,15 @@
+name: Example
+on: [push]
+
+jobs:
+  my_job:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: run demo gh action
+      id: prom-exporter
+      uses: iamNoah1/prometheus-action-metrics@main
+      with:
+        prometheus-remote-write-url: 'https://prometheus-prod-01-eu-west-0.grafana.net/api/prom'
+        prometheus-username: ${{ secrets.PrometheusUsername }}
+        prometheus-password: ${{ secrets.PrometheusPassword }}
