@@ -10,6 +10,6 @@ jobs:
       id: prom-exporter
       uses: iamNoah1/prometheus-action-metrics@main
       with:
-        prometheus-remote-write-url: 'https://prometheus-prod-01-eu-west-0.grafana.net/api/prom'
-        prometheus-username: ${{ secrets.PROMETHEUSUSERNAME }}
-        prometheus-password: ${{ secrets.PROMETHEUSPASSWORD }}
+        prometheus_remote_write_url: 'https://prometheus-prod-01-eu-west-0.grafana.net/api/prom'
+        prometheus_username: ${{ secrets.PROMETHEUSUSERNAME }}
+        prometheus_password: ${{ secrets.PROMETHEUSPASSWORD }}

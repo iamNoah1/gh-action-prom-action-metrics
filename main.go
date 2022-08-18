@@ -19,9 +19,9 @@ var (
 )
 
 func main() {
-	prometheusRemoteHost = os.Getenv("INPUT_PROMETHEUS-WRITE-URL")
-	prometheusRemoteUsername = os.Getenv("INPUT_PROMETHEUS-USERNAME")
-	prometheusRemotePassword = os.Getenv("INPUT_PROMETHEUS-PASSWORD")
+	prometheusRemoteHost = os.Getenv("INPUT_PROMETHEUS_REMOTE_WRITE_URL")
+	prometheusRemoteUsername = os.Getenv("INPUT_PROMETHEUS_USERNAME")
+	prometheusRemotePassword = os.Getenv("INPUT_PROMETHEUS_PASSWORD")
 
 	fmt.Printf("url: %s", prometheusRemoteHost)
 	fmt.Printf("username: %s", prometheusRemoteUsername)

@@ -2,19 +2,19 @@ name: 'prometheus-action-metrics'
 description: 'A GitHub Action that sends metrics about GitHub Actions to Prometheus'
 author: 'Noah Ispas'
 inputs:
-  prometheus-remote-write-url:
+  prometheus_remote_write_url:
     required: true
     description: 'The URL of your Prometheus remote write endpoint'
-  prometheus-username:
+  prometheus_username:
     required: true
     description: 'Prometheus username'
-  prometheus-password:
+  prometheus_password:
     required: true
     description: 'Prometheus password (or API Key)'
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.prometheus-remote-write-url }}
-    - ${{ inputs.prometheus-username }}
-    - ${{ inputs.prometheus-password }}
+    - ${{ inputs.prometheus_remote_write_url }}
+    - ${{ inputs.prometheus_username }}
+    - ${{ inputs.prometheus_password }}
