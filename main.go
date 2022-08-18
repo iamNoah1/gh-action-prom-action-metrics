@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"math/rand"
+	"os"
 	"time"
 
 	promremote "github.com/castai/promwrite"
@@ -18,6 +19,10 @@ var (
 )
 
 func main() {
+	prometheusRemoteHost = os.Getenv("INPUT_PROMETHEUS-WRITE-URL")
+	prometheusRemoteUsername = os.Getenv("INPUT_PROMETHEUS-USERNAME")
+	prometheusRemotePassword = os.Getenv("INPUT_PROMETHEUS-PASSWORD")
+
 	if prometheusRemoteHost == "" || prometheusRemotePassword == "" || prometheusRemoteUsername == "" {
 		log.Fatal("Invalid options")
 	}
