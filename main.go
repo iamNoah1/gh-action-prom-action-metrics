@@ -23,6 +23,10 @@ func main() {
 	prometheusRemoteUsername = os.Getenv("INPUT_PROMETHEUS-USERNAME")
 	prometheusRemotePassword = os.Getenv("INPUT_PROMETHEUS-PASSWORD")
 
+	fmt.Printf("url: %s", prometheusRemoteHost)
+	fmt.Printf("username: %s", prometheusRemoteUsername)
+	fmt.Printf("pwd: %s", prometheusRemotePassword)
+
 	if prometheusRemoteHost == "" || prometheusRemotePassword == "" || prometheusRemoteUsername == "" {
 		log.Fatal("Invalid options")
 	}
