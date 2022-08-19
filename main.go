@@ -23,9 +23,9 @@ func main() {
 	prometheusRemoteUsername = os.Getenv("INPUT_PROMETHEUS_USERNAME")
 	prometheusRemotePassword = os.Getenv("INPUT_PROMETHEUS_PASSWORD")
 
-	fmt.Printf("url: %s", prometheusRemoteHost)
-	fmt.Printf("username: %s", prometheusRemoteUsername)
-	fmt.Printf("pwd: %s", prometheusRemotePassword)
+	fmt.Println("url: %s", prometheusRemoteHost)
+	fmt.Println("username: %s", prometheusRemoteUsername)
+	fmt.Println("pwd: %s", prometheusRemotePassword)
 
 	if prometheusRemoteHost == "" || prometheusRemotePassword == "" || prometheusRemoteUsername == "" {
 		log.Fatal("Invalid options")
@@ -41,6 +41,10 @@ func main() {
 
 	authorizationHeader := promremote.WriteHeaders(headers)
 
+	rand.Seed(time.Now().UnixNano())
+	randomNumber := rand.Float64() * 100
+	fmt.Println("random: %d", randomNumber)
+
 	metric := promremote.WriteRequest{
 		TimeSeries: []promremote.TimeSeries{
 			{
@@ -52,7 +56,7 @@ func main() {
 				},
 				Sample: promremote.Sample{
 					Time:  time.Now(),
-					Value: rand.Float64() * 100,
+					Value: randomNumber,
 				},
 			},
 		},
