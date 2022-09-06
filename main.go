@@ -1,15 +1,10 @@
 package main
 
 import (
-	"context"
-	"encoding/base64"
-	"fmt"
 	"log"
-	"math/rand"
 	"os"
-	"time"
 
-	promremote "github.com/castai/promwrite"
+	"github.com/iamNoah1/prometheus-action-metrics/internal"
 )
 
 var (
@@ -23,48 +18,14 @@ func main() {
 	prometheusRemoteUsername = os.Getenv("INPUT_PROMETHEUS_USERNAME")
 	prometheusRemotePassword = os.Getenv("INPUT_PROMETHEUS_PASSWORD")
 
-	fmt.Println("url: %s", prometheusRemoteHost)
-	fmt.Println("username: %s", prometheusRemoteUsername)
-	fmt.Println("pwd: %s", prometheusRemotePassword)
-
+	//This is only relevant when running locally. When running as GH Action, those params are mandatory.
 	if prometheusRemoteHost == "" || prometheusRemotePassword == "" || prometheusRemoteUsername == "" {
-		log.Fatal("Invalid options")
+		log.Fatal("Invalid options, please provide host, username and password for Prometheus")
 	}
 
-	ctx := context.Background()
-	cli := promremote.NewClient(prometheusRemoteHost)
-	headers := make(map[string]string)
+	err := internal.WriteToPrometheus(prometheusRemoteHost, prometheusRemoteUsername, prometheusRemotePassword)
 
-	userPass := prometheusRemoteUsername + ":" + prometheusRemotePassword
-	encodedPass := base64.StdEncoding.EncodeToString([]byte(userPass))
-	headers["Authorization"] = fmt.Sprintf("Basic %s", encodedPass)
-
-	authorizationHeader := promremote.WriteHeaders(headers)
-
-	rand.Seed(time.Now().UnixNano())
-	randomNumber := rand.Float64() * 100
-	fmt.Println("random: %d", randomNumber)
-
-	metric := promremote.WriteRequest{
-		TimeSeries: []promremote.TimeSeries{
-			{
-				Labels: []promremote.Label{
-					{
-						Name:  "__name__",
-						Value: "ghaction_metric",
-					},
-				},
-				Sample: promremote.Sample{
-					Time:  time.Now(),
-					Value: randomNumber,
-				},
-			},
-		},
-	}
-
-	_, err := cli.Write(ctx, &metric, authorizationHeader)
 	if err != nil {
 		log.Fatalf("error: %s", err)
 	}
-
 }
