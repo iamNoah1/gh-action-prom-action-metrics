@@ -9,6 +9,9 @@ jobs:
     - name: show env
       run: env
 
+    - name: show event json
+      run: cat /home/runner/work/_temp/_github_workflow/event.json
+
     - name: run demo gh action
       id: prom-exporter
       uses: iamNoah1/prometheus-action-metrics@main
