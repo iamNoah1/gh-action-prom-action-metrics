@@ -6,6 +6,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: show env
+      run: env
+
     - name: run demo gh action
       id: prom-exporter
       uses: iamNoah1/prometheus-action-metrics@main
